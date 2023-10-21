@@ -9,6 +9,6 @@ import org.springframework.kafka.config.TopicBuilder;
 public class KafkaTopicConfig {
     @Bean
     public NewTopic javaTopic(){
-        return TopicBuilder.name("test").build();
+        return TopicBuilder.name("javaTest").build();
     }
 }
