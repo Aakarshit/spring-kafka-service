@@ -19,7 +19,7 @@ public class KafkaProducerConfig {
 
     @Value("${spring.kafka.consumer.bootstrap-servers}")
     String broker;
-    @Bean
+
     public Map<String, Object> stringKafkaProducer(){
         Map<String, Object> properties = new HashMap<>();
         properties.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG,broker);
@@ -28,25 +28,26 @@ public class KafkaProducerConfig {
         return properties;
     }
 
-    @Bean
+
     public ProducerFactory<String,User> userProducerFactory(){
         return new DefaultKafkaProducerFactory<>(userKafkaProducer());
     }
-    @Bean
+
     public ProducerFactory<String,String> stringProducerFactory(){
         return new DefaultKafkaProducerFactory<>(stringKafkaProducer());
     }
 
-    @Bean(name="kafkaJsonTemplate")
+    @Bean
     public KafkaTemplate<String,User> userKafkaTemplate(){
         return new KafkaTemplate<>(userProducerFactory());
     }
-    @Bean(name="kafkaStringTemplate")
+    @Bean
     public KafkaTemplate<String,String> stringKafkaTemplate(){
+
         return new KafkaTemplate<>(stringProducerFactory());
     }
 
-    @Bean
+
     public Map<String, Object> userKafkaProducer(){
         Map<String, Object> properties = new HashMap<>();
         properties.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG,broker);

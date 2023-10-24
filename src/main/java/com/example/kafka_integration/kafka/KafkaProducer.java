@@ -15,11 +15,11 @@ import org.springframework.stereotype.Service;
 public class KafkaProducer {
 
     @Autowired
-    @Qualifier("kafkaStringTemplate")
+    @Qualifier("stringKafkaTemplate")
     private  KafkaTemplate<String,String> kafkaTemplate;
 
     @Autowired
-    @Qualifier("kafkaJsonTemplate")
+    @Qualifier("userKafkaTemplate")
     private  KafkaTemplate<String, User> kafkaJsonTemplate;
 
 

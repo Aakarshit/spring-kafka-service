@@ -19,7 +19,7 @@ public class KafkaConsumerConfig {
 
     @Value("${spring.kafka.consumer.bootstrap-servers}")
     String broker;
-    @Bean
+
     public ConsumerFactory<String, String> consumerFactory() {
         Map<String, Object> props = new HashMap<>();
         props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, broker);
@@ -29,6 +29,7 @@ public class KafkaConsumerConfig {
         props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG,
                 StringDeserializer.class);
         props.put(JsonDeserializer.TRUSTED_PACKAGES, "*");
+        props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG,"earliest");
         return new DefaultKafkaConsumerFactory<>(props);
     }
 
@@ -41,13 +42,12 @@ public class KafkaConsumerConfig {
         return factory;
     }
 
-    // 2. Consume user objects from Kafka
-
     public ConsumerFactory<String, User> userConsumerFactory() {
         Map<String, Object> props = new HashMap<>();
         props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, broker);
         props.put(ConsumerConfig.GROUP_ID_CONFIG, "my-group-2");
         props.put(JsonDeserializer.TRUSTED_PACKAGES, "*");
+        props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG,"earliest");
         return new DefaultKafkaConsumerFactory<>(props,
                 new StringDeserializer(),
                 new JsonDeserializer<>(User.class));
