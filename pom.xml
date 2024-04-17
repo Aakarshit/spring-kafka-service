@@ -39,22 +39,57 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-redis</artifactId>
+			<version>3.2.1</version>
+		</dependency>
+		<dependency>
+			<groupId>redis.clients</groupId>
+			<artifactId>jedis</artifactId>
+			<version>5.1.0</version>
+			<type>jar</type>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-redis</artifactId>
+			<version>3.2.1</version>
+		</dependency>
+
 	</dependencies>
 
+
+	<profiles>
+		<profile>
+			<id>profile1</id>
+			<properties>
+				<spring.boot.mainclass>com.example.kafka_integration.SpringKafkaApplication</spring.boot.mainclass>
+			</properties>
+		</profile>
+		<profile>
+			<id>profile2</id>
+			<properties>
+				<spring.boot.mainclass>com.example.redis_integration.SpringRedisApplication</spring.boot.mainclass>
+			</properties>
+		</profile>
+
+	</profiles>
+
 	<build>
-		<finalName>kafkaService</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
-					<excludes>
-						<exclude>
-							<groupId>org.projectlombok</groupId>
-							<artifactId>lombok</artifactId>
-						</exclude>
-					</excludes>
+					<mainClass>com.example.redis_integration.SpringRedisApplication</mainClass>
 				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>repackage</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>
